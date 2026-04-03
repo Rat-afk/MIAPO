@@ -78,80 +78,7 @@ class Program
         }
     }
 
-    static void EditTask()
-    {
-        Console.Write("Input the index of the task to edit: ");
-        if (int.TryParse(Console.ReadLine(), out int index) && index >= 0 && index < tasks.Count)
-        {
-            Datebook task = tasks[index];
-
-            Console.Write("Input a new task name (to save current value leave field empty): ");
-            string title = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(title))
-            {
-                task.Title = title;
-            }
-
-            Console.Write("Input a new task description (to save current value leave field empty): ");
-            string description = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(description))
-            {
-                task.Description = description;
-            }
-
-            Console.Write("Enter a new task deadline (please follow the input format in this form dd.mm.yyyy) (to save current value leave field empty): ");
-            string deadline = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(deadline) && DateTime.TryParseExact(deadline, "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime taskDeadline))
-            {
-                task.TaskDeadline = taskDeadline;
-            }
-
-            SaveTasks();
-            Console.WriteLine("Task successfully edited");
-        }
-        else
-        {
-            Console.WriteLine("Invalid task index. The task has not been edited.");
-        }
-    }
-    static void AddTask()
-    {
-        Console.Write("Input  title of the task: ");
-        
-        string title = Console.ReadLine();
-
-        Console.Write("Input description of the task: ");
-        string description = Console.ReadLine();
-
-        Console.Write("Input the deadline for the task (please follow the input format in this form dd.mm.yyyy): ");
-        string taskDeadline = Console.ReadLine();
-
-        if (DateTime.TryParseExact(taskDeadline, "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime deadline))
-        {
-            tasks.Add(new Datebook { Title = title, Description = description, TaskDeadline = deadline });
-            SaveTasks();
-            Console.WriteLine("Task successfully added");
-        }
-        else
-        {
-            Console.WriteLine("Invalid date format. Task was not added.");
-        }
-    }
-
-    static void RemoveTask()
-    {
-        Console.Write("Input index of the task for deleting: ");
-        if (int.TryParse(Console.ReadLine(), out int index) && index >= 0 && index < tasks.Count)
-        {
-            tasks.RemoveAt(index);
-            SaveTasks();
-            Console.WriteLine("Task successfully deleted");
-        }
-        else
-        {
-            Console.WriteLine("Invalid input of index of the task. Task was not deleted.");
-        }
-    }
+    
 
     static void ViewTasksForDay(DateTime date)
     {
@@ -236,22 +163,7 @@ class Program
             Console.WriteLine("There are no tasks in datebook");
         }
     }
-    static void ViewAllTasks()
-    {
-        Console.WriteLine("All tasks:");
-        if (tasks.Count != 0)
-        {
-            for (int i = 0; i < tasks.Count; i++)
-            {
-                var task = tasks[i];
-                Console.WriteLine($"№{i}) {task.Title}: ({task.Description}) - {task.TaskDeadline.ToShortDateString()}");
-            }
-        }
-        else
-        {
-            Console.WriteLine("There are no tasks in datebook");
-        }
-    }
+    
     static void SaveTasks()
     {
         string jsonData = JsonSerializer.Serialize(tasks);
