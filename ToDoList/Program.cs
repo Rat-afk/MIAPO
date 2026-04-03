@@ -100,7 +100,21 @@ class Program
         }
     }
 
-    
+    static void RemoveTask()
+    {
+        Console.Write("Input index of the task for deleting: ");
+        if (int.TryParse(Console.ReadLine(), out int index) && index >= 0 && index < tasks.Count)
+        {
+            tasks.RemoveAt(index);
+            SaveTasks();
+            Console.WriteLine("Task successfully deleted");
+        }
+        else
+        {
+            Console.WriteLine("Invalid input of index of the task. Task was not deleted.");
+        }
+    }
+
     static void EditTask()
     {
         Console.Write("Input the index of the task to edit: ");
