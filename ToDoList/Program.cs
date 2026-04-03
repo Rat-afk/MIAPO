@@ -114,6 +114,22 @@ class Program
             Console.WriteLine("Invalid input of index of the task. Task was not deleted.");
         }
     }
+    static void ViewAllTasks()
+    {
+        Console.WriteLine("All tasks:");
+        if (tasks.Count != 0)
+        {
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                var task = tasks[i];
+                Console.WriteLine($"№{i}) {task.Title}: ({task.Description}) - {task.TaskDeadline.ToShortDateString()}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("There are no tasks in datebook");
+        }
+    }
 
     static void EditTask()
     {
